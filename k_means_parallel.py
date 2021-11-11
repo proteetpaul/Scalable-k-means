@@ -19,3 +19,4 @@ def ScalableKMeansPlusPlus(data, k, l):
         centroids = np.r_[centroids, sample_new(data,distrib,l)]
     
     final_centroids = ScalableKMeansPlusPlus(centroids, k)
+    return final_centroids
