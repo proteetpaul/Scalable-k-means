@@ -26,8 +26,15 @@ def gauss_mixture_evluate():
     print(avgMisClass)
     print(avgIterations)
 
-gauss_mixture_evluate()
+# gauss_mixture_evluate()
 def evaluate_spambase():
     f = open("spambase.data","r")
     df = pd.read_table('spambase.data', sep=',', names=range(58))
     df = np.array(df)
+    k = 20
+    initial_centroids = df[np.random.choice(range(df.shape[0]), k, replace=False),:]
+    iterations,centroids, labels = Kmeans.kmeans(df, k, initial_centroids)
+    cost = cluster_cost(df, centroids)
+    print(cost)
+    print(iterations)
+evaluate_spambase()
