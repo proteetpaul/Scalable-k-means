@@ -3,8 +3,11 @@ import math
 from distance_func import distance
 from kmeanspp_func import cost, distribution, sample_new
 
-def get_weight(dist, centroids):
-    return np.sum(np.min())
+def get_weight(dist,centroids):
+    min_dist = np.zeros(dist.shape)
+    min_dist[range(dist.shape[0]), np.argmin(dist, axis=1)] = 1
+    count = np.array([np.count_nonzero(min_dist[:, i]) for i in range(centroids.shape[0])])
+    return count/np.sum(count)
 
 def ScalableKMeansPlusPlus(data, k, l):
     centroids = data[np.random.choice(range(data.shape[0]),1), :]
@@ -18,5 +21,8 @@ def ScalableKMeansPlusPlus(data, k, l):
         distrib = distribution(dist, current_cost)
         centroids = np.r_[centroids, sample_new(data,distrib,l)]
     
-    final_centroids = ScalableKMeansPlusPlus(centroids, k)
-    return final_centroids
+    ## reduce k*l to k using KMeans++ 
+    dist = distance(data, centroids)
+    weights = get_weight(dist, centroids)
+    
+    return centroids[np.random.choice(len(weights), k, replace= False, p = weights),:]
