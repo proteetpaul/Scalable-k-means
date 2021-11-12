@@ -38,7 +38,7 @@ def Kmeanspp(data, k):
         #Calculate the cost of data with respect to the centroids
         cost_centroids = cost(dist)
         #Calculate the distribution for sampling a new center
-        d = distribution(dist, cost_centroids)
+        p = distribution(dist, cost_centroids)
         #Sample the new center and append it to the original ones
         centroids = np.r_[centroids, sample_new(data,p,1)]
 

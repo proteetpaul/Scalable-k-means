@@ -9,10 +9,8 @@ def get_weight(dist,centroids):
     count = np.array([np.count_nonzero(min_dist[:, i]) for i in range(centroids.shape[0])])
     return count/np.sum(count)
 
-def ScalableKMeansPlusPlus(data, k, l, iter=5):
+def scalableKMeansPlusPlus(data, k, l, iter=5):
     centroids = data[np.random.choice(range(data.shape[0]),1), :]
-    dist = distance(data, centroids)
-    initial_cost = np.sum(dist)
 
     for i in range(0, iter):
         dist = distance(data, centroids)

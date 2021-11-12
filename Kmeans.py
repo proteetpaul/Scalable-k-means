@@ -1,10 +1,11 @@
 import numpy as np
 from distance_func import distance
 
-def Kmeans(data, k, initial_centroids, iterations=10000):
-    np.random.seed(random_state)
+def kmeans(data, k, initial_centroids, iterations=10000):
     centroids = initial_centroids
     m = np.shape(data)[0]
+    cluster_label = np.zeros((m))
+    iter = 10000
 
     for i in range(iterations):
         dist = distance(data, centroids)
@@ -16,8 +17,9 @@ def Kmeans(data, k, initial_centroids, iterations=10000):
             else:
                 newCentroids[j] = np.mean(data[cluster_label == j, :], axis=0)
         if np.array_equal(centroids, newCentroids):
-            print("COnvergence reached after:",i," iterations...")
+            print("Convergence reached after:",i," iterations...")
+            iter = i
             break
         centroids = newCentroids
     
-    return iterations, centroids, cluster_labels
+    return iter, centroids, cluster_label

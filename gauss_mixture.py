@@ -2,7 +2,7 @@ import numpy as np
 def generate_gauss_mixture(k,R):
     n = 10000
     d = 15
-    mean = np.zeros((15))
+    mean = np.hstack(np.zeros((d,1)))
     cov = np.diag(np.array([R]*d))
     centers = np.random.multivariate_normal(mean, cov, k)
 
@@ -16,4 +16,3 @@ def generate_gauss_mixture(k,R):
             trueLabels = np.append(trueLabels,np.repeat(i,int(n/k)))
     return data, trueLabels
     
-generate_gauss_mixture(15,1)
